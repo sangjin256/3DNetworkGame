@@ -1,0 +1,61 @@
+using UnityEngine;
+
+public class PlayerAttack : MonoBehaviour
+{
+    [SerializeField] private float _attackCooltime;
+    private float _elapsedtime;
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+        _elapsedtime = 0f;
+    }
+
+    private void Update()
+    {
+        _elapsedtime += Time.deltaTime;
+        if(_elapsedtime >= _attackCooltime)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RandomAttack();
+                _elapsedtime = 0f;
+            }
+        }
+    }
+
+    private void RandomAttack()
+    {
+        int index = Random.Range(0, (int)AttackType.Count);
+        string attack = GetAttackTypeString((AttackType)index);
+
+        if (string.IsNullOrEmpty(attack)) return;
+
+        _animator.SetTrigger(attack);
+    }
+
+
+    private string GetAttackTypeString(AttackType type)
+    {
+        switch (type)
+        {
+            case AttackType.Attack1:
+                return "Attack1";
+            case AttackType.Attack2:
+                return "Attack2";
+            case AttackType.Attack3:
+                return "Attack3";
+        }
+        return string.Empty;
+    }
+}
+
+public enum AttackType
+{
+    Attack1,
+    Attack2,
+    Attack3,
+
+    Count,
+}
