@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class PlayerRotation : MonoBehaviour
+public class PlayerRotation : PlayerAbility
 {
-    [SerializeField] private float _rotationSpeed;
     [SerializeField] private Transform _cameraRoot;
 
     private float _yRotation = 0f;
@@ -20,8 +19,8 @@ public class PlayerRotation : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-        _mx += mouseX * _rotationSpeed * Time.deltaTime;
-        _my += mouseY * _rotationSpeed * Time.deltaTime;
+        _mx += mouseX * _owner.Stat.RotationSpeed * Time.deltaTime;
+        _my += mouseY * _owner.Stat.RotationSpeed * Time.deltaTime;
 
         _my = Mathf.Clamp(_my, -90f, 90f);
 

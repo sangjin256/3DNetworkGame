@@ -1,16 +1,13 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : PlayerAbility
 {
     private CharacterController _controller;
     private Animator _animator;
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _jumpPower;
+
     private const float GRAVITY = -9.8f;
     private Vector3 _direction;
     [SerializeField] private float _yVelocity;
-
-    private bool _isJumping;
 
     private void Start()
     {
@@ -30,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         _direction.y = -0.01f;
         if (Input.GetKeyDown(KeyCode.Space) && _controller.isGrounded)
         {
-            _yVelocity = _jumpPower;
+            _yVelocity = _owner.Stat.JumpPower;
             _animator.SetTrigger("JumpStart");
         }
 
@@ -43,10 +40,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             if(_yVelocity != -0.01f) _animator.SetTrigger("JumpEnd");
-            _isJumping = false;
         }
 
         _direction.y = _yVelocity;
-        _controller.Move(_direction * _moveSpeed * Time.deltaTime);
+        _controller.Move(_direction * _owner.Stat.MoveSpeed * Time.deltaTime);
     }
 }

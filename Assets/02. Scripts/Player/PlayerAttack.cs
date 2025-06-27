@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : PlayerAbility
 {
-    [SerializeField] private float _attackCooltime;
     private float _elapsedtime;
     private Animator _animator;
 
@@ -15,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     private void Update()
     {
         _elapsedtime += Time.deltaTime;
-        if(_elapsedtime >= _attackCooltime)
+        if (_elapsedtime >= 1f / _owner.Stat.AttackSpeed)
         {
             if (Input.GetMouseButtonDown(0))
             {

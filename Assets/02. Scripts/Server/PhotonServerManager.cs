@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UIElements.Experimental;
 using System.Collections.Generic;
+using Player = Photon.Realtime.Player;
 
 // 역할 : 포톤 서버 관리자 (서버 연결, 로비 입장, 방 입장, 게임 입장)
 public class PhotonServerManager : MonoBehaviourPunCallbacks
@@ -61,8 +62,8 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
         Debug.Log($"플레이어 : {PhotonNetwork.CurrentRoom.PlayerCount}명");
 
         // 룸에 접속한 사용자 정보
-        Dictionary<int, Player> roomPlayers = PhotonNetwork.CurrentRoom.Players;
-        foreach(KeyValuePair<int, Player> player in roomPlayers)
+        Dictionary<int, Photon.Realtime.Player> roomPlayers = PhotonNetwork.CurrentRoom.Players;
+        foreach(KeyValuePair<int, Photon.Realtime.Player> player in roomPlayers)
         {
             Debug.Log($"{player.Value.NickName} : {player.Value.ActorNumber}");
             // ActorNumber는 Room 안에서의 플레이어에 대한 판별 ID (들어온 순서대로 1,2,3,~~)
