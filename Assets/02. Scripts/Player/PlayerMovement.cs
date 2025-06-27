@@ -74,6 +74,7 @@ public class PlayerMovement : PlayerAbility, IPunObservable
         {
             _yVelocity = _owner.Stat.JumpPower;
             _owner.Animator.SetTrigger("JumpStart");
+            _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.Jump);
         }
 
         if (_owner.Controller.isGrounded == false)
@@ -96,8 +97,7 @@ public class PlayerMovement : PlayerAbility, IPunObservable
             {
                 _isSprint = false;
             }
-
-            PlayerCameraManager.Instance.ChangeToSprintFOV();
+            else PlayerCameraManager.Instance.ChangeToSprintFOV();
         }
 
         if (_isSprint)

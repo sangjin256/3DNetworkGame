@@ -19,6 +19,7 @@ public class PlayerAttack : PlayerAbility
             if (Input.GetMouseButtonDown(0))
             {
                 RandomAttack();
+                _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.BasicAttack);
                 _elapsedtime = 0f;
             }
         }

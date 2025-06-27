@@ -5,7 +5,7 @@ using System;
 public class Player : MonoBehaviour
 {
     public PlayerStat Stat;
-
+    public PlayerEvent Events;
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
 
