@@ -3,7 +3,7 @@ using Microlight.MicroBar;
 using Photon.Pun;
 using UnityEngine;
 
-public class UI_PlayerStatus : BehaviourSingleton<UI_PlayerStatus>
+public class UI_PlayerStatus : MonoBehaviour
 {
     [SerializeField] private MicroBar HealthBar;
     [SerializeField] private MicroBar StaminaBar;

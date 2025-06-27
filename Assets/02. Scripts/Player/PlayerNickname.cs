@@ -7,9 +7,9 @@ public class PlayerNickname : PlayerAbility
 
     private void Start()
     {
-        NicknameTextUI.text = $"{_photonView.Owner.NickName}_{_photonView.Owner.ActorNumber}";
+        NicknameTextUI.text = $"{_owner.PhotonView.Owner.NickName}_{_owner.PhotonView.Owner.ActorNumber}";
 
-        if (_photonView.IsMine)
+        if (_owner.PhotonView.IsMine)
         {
             NicknameTextUI.color = Color.green;
         }

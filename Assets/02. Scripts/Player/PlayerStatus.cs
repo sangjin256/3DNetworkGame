@@ -20,7 +20,10 @@ public class PlayerStatus : PlayerAbility, IDamageable
 
         CanUseStamina = true;
 
-        if(_photonView.IsMine) UI_PlayerStatus.Instance.Init(_owner);
+        if (_owner.PhotonView.IsMine)
+        {
+            UIManager.Instance.Init(_owner);
+        }
     }
 
     private void StartStaminaRecovery()
@@ -38,6 +41,7 @@ public class PlayerStatus : PlayerAbility, IDamageable
 
         while(_owner.Stat.Stamina < _owner.Stat.MaxStamina)
         {
+            CanUseStamina = true;
             _owner.Stat.Stamina += _recoverySpeed * Time.deltaTime;
             if (_owner.Stat.Stamina > _owner.Stat.MaxStamina) _owner.Stat.Stamina = _owner.Stat.MaxStamina;
             _owner.Events.OnStaminaChanged?.Invoke();
@@ -45,7 +49,6 @@ public class PlayerStatus : PlayerAbility, IDamageable
         }
 
         _staminaRecoveryCoroutine = null;
-        CanUseStamina = true;
     }
 
     public void UseStamina(StaminaType type)

@@ -11,16 +11,19 @@ public class PlayerAttack : PlayerAbility
 
     private void Update()
     {
-        if (_photonView.IsMine == false) return;
+        if (_owner.PhotonView.IsMine == false) return;
 
         _elapsedtime += Time.deltaTime;
         if (_elapsedtime >= 1f / _owner.Stat.AttackSpeed)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                RandomAttack();
-                _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.BasicAttack);
-                _elapsedtime = 0f;
+                if (_owner.GetAbility<PlayerStatus>().CanUseStamina)
+                {
+                    RandomAttack();
+                    _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.BasicAttack);
+                    _elapsedtime = 0f;
+                }
             }
         }
     }

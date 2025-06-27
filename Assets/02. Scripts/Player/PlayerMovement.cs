@@ -18,7 +18,7 @@ public class PlayerMovement : PlayerAbility, IPunObservable
 
     private void Start()
     {
-        _photonView.ObservedComponents.Add(this);
+        _owner.PhotonView.ObservedComponents.Add(this);
 
         _currentMoveSpeed = _owner.Stat.MoveSpeed;
     }
@@ -45,7 +45,7 @@ public class PlayerMovement : PlayerAbility, IPunObservable
 
     private void Update()
     {
-        if (_photonView.IsMine == false)
+        if (_owner.PhotonView.IsMine == false)
         {
             transform.position = Vector3.Lerp(transform.position, _receivedPosition, Time.deltaTime * 20f);
             transform.rotation = Quaternion.Lerp(transform.rotation, _receivedRotataion, Time.deltaTime * 20f);
@@ -72,9 +72,12 @@ public class PlayerMovement : PlayerAbility, IPunObservable
     {
         if (Input.GetKeyDown(KeyCode.Space) && _owner.Controller.isGrounded)
         {
-            _yVelocity = _owner.Stat.JumpPower;
-            _owner.Animator.SetTrigger("JumpStart");
-            _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.Jump);
+            if (_owner.GetAbility<PlayerStatus>().CanUseStamina)
+            {
+                _yVelocity = _owner.Stat.JumpPower;
+                _owner.Animator.SetTrigger("JumpStart");
+                _owner.GetAbility<PlayerStatus>().UseStamina(StaminaType.Jump);
+            }
         }
 
         if (_owner.Controller.isGrounded == false)

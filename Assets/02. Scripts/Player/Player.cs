@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
     public PlayerEvent Events;
     public Animator Animator { get; private set; }
     public CharacterController Controller { get; private set; }
+    public PhotonView PhotonView { get; private set; }
 
     private Dictionary<Type, PlayerAbility> _componentDic;
 
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     {
         Controller = GetComponent<CharacterController>();
         Animator = GetComponent<Animator>();
+        PhotonView = GetComponent<PhotonView>();
 
         _componentDic = new Dictionary<Type, PlayerAbility>();
     }

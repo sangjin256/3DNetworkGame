@@ -14,7 +14,7 @@ public class PlayerRotation : PlayerAbility
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (_photonView.IsMine)
+        if (_owner.PhotonView.IsMine)
         {
             CinemachineCamera camera = GameObject.FindGameObjectWithTag("FollowCamera").GetComponent<CinemachineCamera>();
             camera.Follow = _cameraRoot;
@@ -22,7 +22,7 @@ public class PlayerRotation : PlayerAbility
     }
     private void Update()
     {
-        if (_photonView.IsMine == false) return;
+        if (_owner.PhotonView.IsMine == false) return;
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
