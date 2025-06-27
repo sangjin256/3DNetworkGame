@@ -3,16 +3,16 @@ using UnityEngine;
 public class PlayerAttack : PlayerAbility
 {
     private float _elapsedtime;
-    private Animator _animator;
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
         _elapsedtime = 0f;
     }
 
     private void Update()
     {
+        if (_photonView.IsMine == false) return;
+
         _elapsedtime += Time.deltaTime;
         if (_elapsedtime >= 1f / _owner.Stat.AttackSpeed)
         {
@@ -31,7 +31,7 @@ public class PlayerAttack : PlayerAbility
 
         if (string.IsNullOrEmpty(attack)) return;
 
-        _animator.SetTrigger(attack);
+        _owner.Animator.SetTrigger(attack);
     }
 
 
@@ -48,13 +48,4 @@ public class PlayerAttack : PlayerAbility
         }
         return string.Empty;
     }
-}
-
-public enum AttackType
-{
-    Attack1,
-    Attack2,
-    Attack3,
-
-    Count,
 }
