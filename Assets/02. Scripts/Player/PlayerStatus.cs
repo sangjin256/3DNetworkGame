@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatus : PlayerAbility, IDamageable
+public class PlayerStatus : PlayerAbility
 {
     public bool CanUseStamina { get; private set; }
     [SerializeField] private float _recoveryDelay = 0.5f;
@@ -83,10 +83,5 @@ public class PlayerStatus : PlayerAbility, IDamageable
 
             StartStaminaRecovery();
         }
-    }
-
-    public void TakeDamage(Damage damage)
-    {
-        _owner.Stat.Health -= damage.Value;
     }
 }

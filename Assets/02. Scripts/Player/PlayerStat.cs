@@ -3,7 +3,7 @@ using UnityEngine;
 
 [Serializable]
 public class PlayerStat
-{
+{ 
     public float MaxHealth  = 100;
     public float Health     = 100;
     public float MaxStamina = 100;
@@ -14,4 +14,6 @@ public class PlayerStat
     public float MoveSpeed      = 10f;
     public float SprintSpeed    = 20f;
     public float JumpPower      = 3f;
+
+    public float Damage = 20;
 }

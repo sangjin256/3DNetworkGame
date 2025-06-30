@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Photon.Pun;
+using static UnityEngine.UI.GridLayoutGroup;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     public PlayerStat Stat;
     public PlayerEvent Events;
@@ -20,6 +21,13 @@ public class Player : MonoBehaviour
         PhotonView = GetComponent<PhotonView>();
 
         _componentDic = new Dictionary<Type, PlayerAbility>();
+    }
+
+    [PunRPC]
+    public void TakeDamage(float damage)
+    {
+        Stat.Health = Mathf.Max(0, Stat.Health - damage);
+        Events.OnHealthChanged?.Invoke();
     }
 
     public T GetAbility<T>() where T : PlayerAbility
