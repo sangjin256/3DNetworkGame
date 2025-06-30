@@ -21,6 +21,7 @@ public class PlayerAttack : PlayerAbility
     private void Update()
     {
         if (_owner.PhotonView.IsMine == false) return;
+        if (_owner.Controller.enabled == false) return;
 
         _elapsedtime += Time.deltaTime;
         if (_elapsedtime >= 1f / _owner.Stat.AttackSpeed)
@@ -62,7 +63,7 @@ public class PlayerAttack : PlayerAbility
         //damagedObject.TakeDamage(damage);
 
         PhotonView otherPhotonView = other.GetComponent<PhotonView>();
-        otherPhotonView.RPC(nameof(Player.TakeDamage), RpcTarget.All, _owner.Stat.Damage);
+        otherPhotonView.RPC(nameof(Player.TakeDamage), RpcTarget.AllBuffered, _owner.Stat.Damage);
     }
 
     // RPC로 호출할 함수는 반드시 [PunRPC] 어트리뷰트를 함수 앞에 명시해줘야 한다.

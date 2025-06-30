@@ -52,6 +52,11 @@ public class PlayerMovement : PlayerAbility, IPunObservable
             return;
         }
 
+        if(_owner.Controller.enabled == false)
+        {
+            return;
+        }
+
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 

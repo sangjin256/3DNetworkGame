@@ -26,6 +26,13 @@ public class PlayerStatus : PlayerAbility
         }
     }
 
+    private void Update()
+    {
+        if (_owner.Controller.enabled == false) return;
+
+        if (transform.position.y < -10f) _owner.TakeDamage(10000000f);
+    }
+
     private void StartStaminaRecovery()
     {
         if(_staminaRecoveryCoroutine != null)

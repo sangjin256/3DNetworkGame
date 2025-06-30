@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 using static UnityEngine.UI.GridLayoutGroup;
+using System.Collections;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -28,6 +29,38 @@ public class Player : MonoBehaviour, IDamageable
     {
         Stat.Health = Mathf.Max(0, Stat.Health - damage);
         Events.OnHealthChanged?.Invoke();
+
+        if(Stat.Health == 0)
+        {
+            StartCoroutine(DieRevive_Coroutine());
+        }
+    }
+
+    private IEnumerator DieRevive_Coroutine()
+    {
+        OnDie();
+        yield return new WaitForSeconds(5f);
+        Revive();
+    }
+
+    public void OnDie()
+    {
+        Animator.SetBool("Die", true);
+        Controller.enabled = false;
+    }
+
+    public void Revive()
+    {
+        Animator.SetBool("Die", false);
+        transform.position = GameManager.Instance.GetPlayerSpawnPoint();
+        Stat.Health = Stat.MaxHealth;
+        Stat.Stamina = Stat.MaxStamina;
+
+        Events.OnStaminaChanged?.Invoke();
+        Events.OnHealthChanged?.Invoke();
+
+        Controller.enabled = true;
+
     }
 
     public T GetAbility<T>() where T : PlayerAbility

@@ -4,6 +4,9 @@ using Photon.Realtime;
 using UnityEngine.UIElements.Experimental;
 using System.Collections.Generic;
 using Player = Photon.Realtime.Player;
+using System;
+using System.Collections;
+using Photon.Pun.Demo.PunBasics;
 
 // 역할 : 포톤 서버 관리자 (서버 연결, 로비 입장, 방 입장, 게임 입장)
 public class PhotonServerManager : MonoBehaviourPunCallbacks
@@ -11,6 +14,7 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
     // MonoBehaviourPunCallbacks : 유니티 이벤트 말고도 PUN 서버 이벤트를 받을 수 있다.
     private readonly string _gameVersion = "1.0.0";
     private string _nickName = "SLee";
+
     private void Start()
     {
         // 설정
@@ -79,7 +83,7 @@ public class PhotonServerManager : MonoBehaviourPunCallbacks
         // 방에 입장 완료가 되면 플레이어를 생성한다.
         // 포톤에서는 게임 오브젝트 생성 후 포톤 서버에 등록까지 해야된다. -> PhotonNetwork.Instantiate
         // 프리펩이 Resources폴더에 있어야됨.
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", GameManager.Instance.GetPlayerSpawnPoint(), Quaternion.identity);
     }
 
     // 방 입장에 실패하면 호출되는 함수
